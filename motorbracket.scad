@@ -118,3 +118,62 @@ module motorRodHolder() {
     cylinder(d=tightRodDiameter, h=bracketX+0.2);
   }
 }
+
+// zDistance has to be the distance from the "pulley bottom offset" to the
+// center of the drill holes. Then it will be symmetrical and you can flip
+// one jig over and use it for the mirror side.
+// (so each jig will be zDistance*2 high)
+zDistance = bracketZ + backWallThickness/2;
+jigX = motorSize + backWallThickness + boxThickness + jigThickness;
+jigY = motorSize + idlerSpacing + boxThickness + jigThickness;
+
+module motorDrillJig() {
+  union() {
+    translate([0, jigY-jigThickness, 0])
+    //cube([jigX, jigThickness, zDistance*2]);
+    jigPlateX();
+    //cube([jigThickness, jigY, zDistance*2]);
+    jigPlateY();
+  }
+}
+
+module jigPlateX() {
+  difference() {
+    cube([jigX, jigThickness, zDistance*2]);
+    translate([motorScrewOffset, 0, 0])
+    jigHoleX();
+    translate([-motorScrewOffset, 0, 0])
+    jigHoleX();
+  }
+}
+
+
+module jigHoleX() {
+  translate([jigThickness + boxThickness + backWallThickness + motorSize/2, 0, zDistance])
+  rotate([90, 0, 0])
+  translate([0, 0, -(jigThickness+0.1)])
+  cylinder(d=wallDrillDiameter, h=jigThickness+0.2);
+}
+
+module jigHoleY() {
+  translate([0, motorSize/2, zDistance])
+  rotate([0, 90, 0])
+  translate([0, 0, -0.1])
+  cylinder(d=wallDrillDiameter, h=jigThickness+0.2);
+}
+
+module jigPlateY() {
+  difference() {
+    cube([jigThickness, jigY, zDistance*2]);
+    translate([0, motorScrewOffset, 0])
+    jigHoleY();
+    translate([0, -motorScrewOffset, 0])
+    jigHoleY();
+  }
+}
+
+//translate([-(jigX/2+boxThickness+jigThickness), -(jigY/2+boxThickness), -(zDistance+backWallThickness/2)])
+
+//translate([-(motorSize/2 + backWallThickness + boxThickness + jigThickness), -(motorSize/2), -(zDistance+backWallThickness/2)])
+motorDrillJig();
+//motorBracket();

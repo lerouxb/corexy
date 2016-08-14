@@ -32,7 +32,7 @@ tightRodDiameter = rodDiameter - 0.1; // for jamming it in ther
 looseRodDiameter = rodDiameter + 0.1; // for sliding it over
 rodMountDiameter = rodDiameter + 4*wallThickness;
 
-rodHolderLip = 9;
+rodHolderLip = 9; // TODO: make this much bigger AND move the pulley
 rodHolderPulleyOffset = 3*wallThickness;
 
 //shortShaftLength = 250;
@@ -70,3 +70,7 @@ tensionerNutHeight = 4;
 tensionerOffsetY = rodMountDiameter/4;
 
 penHexDiameter = 8.5;
+
+boxThickness = 10; // CHANGE ME!
+pulleyBottomOffset = 25; // slightly more than the pulley size plus bolt head
+jigThickness = 2*wallThickness;
