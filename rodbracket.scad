@@ -1,6 +1,5 @@
 include <config.scad>;
 
-rodHolderLip = 9;
 rodHolderX = rodMountDiameter + rodHolderLip;
 rodHolderY = rodMountDiameter + backWallThickness + wallThickness + rodHolderLip;
 
@@ -55,8 +54,51 @@ module rodWallHole() {
 module rodPulleyHole() {
   translate([0, 0, -0.1]) {
   cylinder(d=idlerDrillDiameter, h=bracketZ+0.2);
+  rotate([0, 0, 90])
   cylinder(d=idlerNutDiameter, h=idlerNutHeight+0.1, $fn=6);
   }
 }
 
+zDistance = bracketZ + rodMountDiameter/2;
+jigX = rodHolderX + boxThickness + jigThickness;
+jigY = rodHolderY + boxThickness + jigThickness;
+
+module rodDrillJig() {
+  union() {
+    rodJigPlateX();
+    rodJigPlateY();
+  }
+}
+
+module rodJigPlateX() {
+  difference() {
+    cube([jigX, jigThickness, zDistance*2]);
+    rodJigHoleX();
+  }
+}
+
+module rodJigPlateY() {
+  difference() {
+    cube([jigThickness, jigY, zDistance*2]);
+    rodJigHoleY();
+  }
+}
+
+module rodJigHoleX() {
+  translate([jigThickness+boxThickness+rodMountDiameter+rodHolderLip/2, 0, zDistance])
+  rotate([90, 0, 0])
+  translate([0, 0, -(jigThickness+0.1)])
+  cylinder(d=wallDrillDiameter, h=jigThickness+0.2);
+}
+
+module rodJigHoleY() {
+  translate([0, jigThickness+boxThickness+backWallThickness+rodMountDiameter+rodHolderLip/2, zDistance])
+  rotate([0, 90, 0])
+  translate([0, 0, -0.1])
+  cylinder(d=wallDrillDiameter, h=jigThickness+0.2);
+}
+
+translate([-(rodMountDiameter/2 + boxThickness + jigThickness), -(rodMountDiameter/2 + wallThickness + backWallThickness + boxThickness + jigThickness), -bracketZ])
+rodDrillJig();
 rodBracket();
+

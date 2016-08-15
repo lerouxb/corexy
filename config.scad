@@ -28,12 +28,12 @@ wallNutHeight = 4;
 backWallThickness = wallNutHeight + 2*wallThickness;
 
 rodDiameter = 12.5; // actually 12.2
-tightRodDiameter = rodDiameter - 0.1; // for jamming it in ther
+tightRodDiameter = rodDiameter; // for jamming it in there
 looseRodDiameter = rodDiameter + 0.1; // for sliding it over
 rodMountDiameter = rodDiameter + 4*wallThickness;
 
-rodHolderLip = 9; // TODO: make this much bigger AND move the pulley
-rodHolderPulleyOffset = 3*wallThickness;
+rodHolderLip = 12;
+rodHolderPulleyOffset = 2;
 
 //shortShaftLength = 250;
 
@@ -52,7 +52,6 @@ bracketX = backWallThickness + motorSize;
 bracketY = rodMountDiameter + backWallThickness + motorSize + idlerSpacing;
 
 // difference between the motor shaft length and the pulley z size
-// TODO: leave some clearance so the pulley doesn't rub against it
 bracketZ = motorShaftHeight - pulleyBushingHeight;
 
 idlerNutHeight = bracketZ - 2*wallThickness;
@@ -69,7 +68,7 @@ tensionerNutHeight = 4;
 
 tensionerOffsetY = rodMountDiameter/4;
 
-penHexDiameter = 8.5;
+penHexDiameter = 9;
 
 boxThickness = 10; // CHANGE ME!
 pulleyBottomOffset = 25; // slightly more than the pulley size plus bolt head

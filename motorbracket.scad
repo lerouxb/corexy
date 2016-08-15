@@ -130,50 +130,46 @@ jigY = motorSize + idlerSpacing + boxThickness + jigThickness;
 module motorDrillJig() {
   union() {
     translate([0, jigY-jigThickness, 0])
-    //cube([jigX, jigThickness, zDistance*2]);
-    jigPlateX();
-    //cube([jigThickness, jigY, zDistance*2]);
-    jigPlateY();
+    motorJigPlateX();
+    motorJigPlateY();
   }
 }
 
-module jigPlateX() {
+module motorJigPlateX() {
   difference() {
     cube([jigX, jigThickness, zDistance*2]);
     translate([motorScrewOffset, 0, 0])
-    jigHoleX();
+    motorJigHoleX();
     translate([-motorScrewOffset, 0, 0])
-    jigHoleX();
+    motorJigHoleX();
   }
 }
 
 
-module jigHoleX() {
+module motorJigHoleX() {
   translate([jigThickness + boxThickness + backWallThickness + motorSize/2, 0, zDistance])
   rotate([90, 0, 0])
   translate([0, 0, -(jigThickness+0.1)])
   cylinder(d=wallDrillDiameter, h=jigThickness+0.2);
 }
 
-module jigHoleY() {
+module motorJigHoleY() {
   translate([0, motorSize/2, zDistance])
   rotate([0, 90, 0])
   translate([0, 0, -0.1])
   cylinder(d=wallDrillDiameter, h=jigThickness+0.2);
 }
 
-module jigPlateY() {
+module motorJigPlateY() {
   difference() {
     cube([jigThickness, jigY, zDistance*2]);
     translate([0, motorScrewOffset, 0])
-    jigHoleY();
+    motorJigHoleY();
     translate([0, -motorScrewOffset, 0])
-    jigHoleY();
+    motorJigHoleY();
   }
 }
 
-//translate([-(jigX/2+boxThickness+jigThickness), -(jigY/2+boxThickness), -(zDistance+backWallThickness/2)])
-
-//translate([-(motorSize/2 + backWallThickness + boxThickness + jigThickness), -(motorSize/2), -(zDistance+backWallThickness/2)])
+translate([-(motorSize/2 + backWallThickness + boxThickness + jigThickness), -(motorSize/2), -(zDistance+backWallThickness/2)])
 motorDrillJig();
-//motorBracket();
+motorBracket();
