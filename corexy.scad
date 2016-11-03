@@ -7,10 +7,7 @@ use <motorbracket.scad>;
 use <gantryend.scad>;
 use <rodbracket.scad>;
 use <pulleys.scad>;
-use <gantry.scad>;
-
-
-
+use <carriage.scad>;
 
 
 module testBracket() {
@@ -51,9 +48,17 @@ translate([bracketX + gantryX - backWallThickness, 0, 0]) {
   translate([0, 0, pulleyOffset])
   motorPulley();
 
-  translate([-idlerOffsetX, idlerOffsetY, pulleyOffset])
+  translate([idlerOffsetX, idlerOffsetY, pulleyOffset])
   idlerPulleyBushing();
 }
+
+
+translate([-(motorSize/2+rodMountDiameter/2), -(motorSize/2+rodMountDiameter/2+motorDistance), 0])
+rodBracket();
+
+translate([bracketX*2 + gantryX - (rodMountDiameter+2*idlerNutDiameter), -(motorSize/2+rodMountDiameter/2+motorDistance), 0])
+mirror()
+rodBracket();
 
 translate([gantryX/2+motorSize/2, -(motorSize/2+rodMountDiameter/2+motorDistance), 0]) {
   gantryEnd();
@@ -66,18 +71,18 @@ translate([gantryX/2+motorSize/2, -(motorSize/2+rodMountDiameter/2+motorDistance
 }
 
 translate([gantryX/2+motorSize/2, -(motorSize/2+rodMountDiameter/2+motorDistance+10+rodMountDiameter), rodMountDiameter/2])
-gantry();
+carriage();
 
-translate([-(rodMountDiameter+wallThickness), -(motorSize/2+rodMountDiameter/2+motorDistance + rodMountDiameter + spacing), -rodMountDiameter]) {
-  rodBracket();
-  translate([rodHolderPulleyOffset, rodMountDiameter/2 + rodHolderLip/2, rodMountDiameter/2+bracketZ+pulleyOffset])
+translate([-(motorSize/2+rodMountDiameter/2), -(motorSize/2+rodMountDiameter/2+motorDistance + rodMountDiameter + spacing), 0]) {
+  rodPulleyBracket();
+  translate([lipX/2, rodMountDiameter/2 + lipY/2, pulleyOffset])
   idlerPulleyBushing();
 }
 
-translate([bracketX + gantryX - backWallThickness + wallThickness + rodMountDiameter, -(motorSize/2+rodMountDiameter/2+motorDistance + rodMountDiameter + spacing), -rodMountDiameter])
+translate([bracketX*2 + gantryX - (rodMountDiameter+2*idlerNutDiameter), -(motorSize/2+rodMountDiameter/2+motorDistance + rodMountDiameter + spacing), 0])
 mirror() {
-  rodBracket();
-  translate([rodHolderPulleyOffset, rodMountDiameter/2 + rodHolderLip/2, rodMountDiameter/2+bracketZ+pulleyOffset])
+  rodPulleyBracket();
+  translate([lipX/2, rodMountDiameter/2 + lipY/2, pulleyOffset])
   idlerPulleyBushing();
 }
 

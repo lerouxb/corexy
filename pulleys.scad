@@ -40,3 +40,11 @@ module motorPulley() {
     cylinder(d=motorShaftDiameter, h=pulleyBushingHeight+0.2);
   }
 }
+
+module motorSpindle() {
+  circumference = 32;
+  radius = circumference/(2*Math.PI);
+
+}
+
+idlerPulleyBushing();

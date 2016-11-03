@@ -1,4 +1,5 @@
 include <config.scad>;
+use <bushing.scad>;
 
 module gantryEnd() {
   difference() {
@@ -11,8 +12,8 @@ module gantryEnd() {
       rodHolderY();
 
       // flat
-      translate([-gantryX/2 + rodMountDiameter, -rodMountDiameter/2, 0])
-      cube([gantryX - 2*rodMountDiameter, rodMountDiameter, bracketZ]);
+      translate([-gantryX/2 + rodMountDiameter, -gantryY/2, 0])
+      cube([gantryX - 2*rodMountDiameter, gantryY, bracketZ]);
     }
 
     // symmetrical screw holes for idler pulleys
@@ -31,38 +32,36 @@ module gantryPulleyHole() {
   }
 }
 
+
 module rodHolderX() {
-  translate([-gantryX/2, 0, -rodMountDiameter/2])
+  translate([-gantryX/2, 0, -rodDiameter])
   rotate([0, 90, 0])
   difference() {
     union() {
-      translate([-rodMountDiameter/2, -rodMountDiameter/2, 0])
-      cube([rodMountDiameter/2, rodMountDiameter, gantryX]);
-      cylinder(d=rodMountDiameter, h=gantryX);
+      difference() {
+        translate([-rodDiameter, -gantryY/2, 0])
+        cube([rodDiameter, gantryY, gantryX]);
+
+        translate([0, 0, -0.1])
+        cylinder(d=rodDiameter*2, h=gantryX+0.2);
+      }
+
+      bushing(lm8uu_od=rodDiameter*2, lm8uu_length=gantryX, lm8uu_id=rodDiameter);
     }
 
-    // this part has to slide over the rod
-    translate([0, 0, -0.1])
-    cylinder(d=looseRodDiameter, h=gantryX+0.2);
-
-    difference() {
-      // subtract the middle section
-      translate([-rodMountDiameter/2-0.1, -gantryY/2-0.1, rodMountDiameter])
-      cube([rodMountDiameter+0.2, gantryY+0.2, gantryX-2*rodMountDiameter]);
-
-      //translate([-rodMountDiameter/2-0.2, -gantryY/2-0.2, gantryX/2-rodMountDiameter*0.2])
-      //cube([rodMountDiameter+0.4, gantryY+0.4, rodMountDiameter*0.4]);
-    }
+    // subtract the middle section
+    translate([-rodMountDiameter, -gantryY, gantryBushingOffset])
+    cube([rodMountDiameter*2, gantryY*2, gantryX-2*gantryBushingOffset]);
   }
 }
 
 module rodHolderY() {
-  translate([0, -rodMountDiameter/2, rodMountDiameter/2])
+  translate([0, -gantryY/2, rodMountDiameter/2])
   rotate([-90, 0, 0])
   difference() {
     union() {
       translate([-rodMountDiameter/2, 0, 0])
-      cube([rodMountDiameter, rodMountDiameter/2, gantryY]);
+      cube([rodMountDiameter, gantryY/2, gantryY]);
       cylinder(d=rodMountDiameter, h=gantryY);
     }
     // this part has to be tight
@@ -70,3 +69,6 @@ module rodHolderY() {
     cylinder(d=tightRodDiameter, h=gantryY+0.2);
   }
 }
+
+gantryEnd();
+//rodHolderX();

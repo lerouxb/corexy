@@ -5,8 +5,8 @@ module motorBracket() {
 
   motorPlate();
   wallBrackets();
-  translate([holderOffset, 0, 0])
-  motorRodHolder();
+  //translate([holderOffset, 0, 0])
+  //motorRodHolder();
 }
 
 module motorScrewHole() {
@@ -170,6 +170,6 @@ module motorJigPlateY() {
   }
 }
 
-translate([-(motorSize/2 + backWallThickness + boxThickness + jigThickness), -(motorSize/2), -(zDistance+backWallThickness/2)])
-motorDrillJig();
+//translate([-(motorSize/2 + backWallThickness + boxThickness + jigThickness), -(motorSize/2), -(zDistance+backWallThickness/2)])
+//motorDrillJig();
 motorBracket();
